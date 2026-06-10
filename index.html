@@ -479,7 +479,7 @@ function renderReservations() {
       <td class="td-mono" style="color:var(--text3)">${i+1}</td>
       <td class="td-name">${r.Name||'—'}</td>
       <td><span class="td-mono">${r.Date||'—'}</span>${badge}</td>
-      <td class="td-mono">${r.Time||'—'}</td>
+      <td class="td-mono">${(r['Time ']||r.Time||'—')}</td>
       <td class="td-mono">${r.Guests||'—'} 👤</td>
       <td class="td-mono">${r.Phone||'—'}</td>
       <td><span class="channel ch-wa">💬 WA</span></td>
@@ -572,7 +572,7 @@ function openEditRes(rowNum, r) {
   document.getElementById('erm-name').value = r.Name||'';
   document.getElementById('erm-phone').value = r.Phone||'';
   document.getElementById('erm-date').value = r.Date||'';
-  document.getElementById('erm-time').value = r.Time||'';
+  document.getElementById('erm-time').value = (r['Time ']||r.Time||'');
   document.getElementById('erm-guests').value = r.Guests||'';
   document.getElementById('erm-notes').value = r.Notes||'';
   document.getElementById('erm-status').value = getStatus(r.Status).toUpperCase();

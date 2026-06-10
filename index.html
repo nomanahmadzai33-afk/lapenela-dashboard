@@ -3,747 +3,703 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>La Penela — Dashboard</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<title>La Penela Moraleja — Panel de Gestión</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
-:root {
-  --bg: #0C0C0E;
-  --surface: #131316;
-  --card: #18181C;
-  --border: #252528;
-  --accent: #C9913D;
-  --accent2: #E8C47A;
-  --red: #C0392B;
-  --green: #2E7D52;
-  --text: #F0EDE8;
-  --muted: #6B6760;
-  --soft: #2A2820;
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0c0c0e;--surface:#141416;--surface2:#1c1c1f;--surface3:#242428;
+  --border:#2a2a2e;--border2:#333338;
+  --gold:#c9a84c;--gold2:#e8c97a;--gold-bg:rgba(201,168,76,0.08);
+  --text:#f0ece4;--text2:#a8a4a0;--text3:#5a5754;
+  --green:#22c55e;--green-bg:rgba(34,197,94,0.1);
+  --red:#ef4444;--red-bg:rgba(239,68,68,0.1);
+  --blue:#3b82f6;--blue-bg:rgba(59,130,246,0.1);
+  --yellow:#f59e0b;--yellow-bg:rgba(245,158,11,0.1);
+  --orange:#f97316;--orange-bg:rgba(249,115,22,0.1);
+  --purple:#a855f7;--purple-bg:rgba(168,85,247,0.1);
+  --r:8px;--r2:12px;
 }
-
-body {
-  font-family: 'DM Sans', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-  font-weight: 300;
-}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;font-size:14px}
 
 /* HEADER */
-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1.25rem 2rem;
-  border-bottom: 1px solid var(--border);
-  background: var(--surface);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
+header{background:var(--surface);border-bottom:1px solid var(--border);padding:0 28px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-mark{width:34px;height:34px;background:linear-gradient(135deg,#c9a84c,#8a6020);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:17px}
+.logo-name{font-family:'Playfair Display',serif;font-size:17px;color:var(--gold)}
+.logo-tag{font-size:10px;color:var(--text3);letter-spacing:.12em;text-transform:uppercase;margin-top:1px}
+.header-right{display:flex;align-items:center;gap:12px}
+.live-pill{display:flex;align-items:center;gap:5px;background:var(--green-bg);border:1px solid rgba(34,197,94,.2);padding:4px 10px;border-radius:20px;font-size:11px;color:var(--green);font-weight:500}
+.live-dot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.last-update{font-size:11px;color:var(--text3)}
 
-.logo {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: var(--accent);
-  letter-spacing: 0.02em;
-}
+/* BUTTONS */
+.btn{background:var(--surface3);border:1px solid var(--border2);color:var(--text);padding:6px 14px;border-radius:var(--r);font-size:12px;font-family:'Inter',sans-serif;cursor:pointer;transition:all .15s;font-weight:500}
+.btn:hover{background:var(--border)}
+.btn-gold{background:var(--gold);border-color:var(--gold);color:#000;font-weight:600}
+.btn-gold:hover{background:var(--gold2)}
+.btn-red{background:var(--red-bg);border-color:rgba(239,68,68,.3);color:var(--red)}
+.btn-green{background:var(--green-bg);border-color:rgba(34,197,94,.3);color:var(--green)}
+.btn-sm{padding:4px 10px;font-size:11px}
+.btn-icon{padding:5px 8px;font-size:13px}
 
-.logo span { color: var(--text); font-weight: 400; }
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(6,1fr);border-bottom:1px solid var(--border)}
+.stat{padding:16px 20px;border-right:1px solid var(--border);background:var(--surface)}
+.stat:last-child{border-right:none}
+.stat-val{font-size:24px;font-weight:700;line-height:1;margin-bottom:3px}
+.stat-lbl{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em}
+.stat-sub{font-size:11px;color:var(--text2);margin-top:2px}
+.c-gold{color:var(--gold)}.c-green{color:var(--green)}.c-red{color:var(--red)}.c-blue{color:var(--blue)}.c-yellow{color:var(--yellow)}.c-orange{color:var(--orange)}.c-purple{color:var(--purple)}
 
-.header-right {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.live-badge {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  background: rgba(46,125,82,0.15);
-  border: 1px solid rgba(46,125,82,0.3);
-  color: #4CAF82;
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 0.75rem;
-  font-weight: 500;
-}
-
-.live-dot {
-  width: 7px;
-  height: 7px;
-  background: #4CAF82;
-  border-radius: 50%;
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.3; }
-}
-
-.date-badge {
-  font-size: 0.8rem;
-  color: var(--muted);
-}
+/* TABS */
+.tabs{display:flex;background:var(--surface);border-bottom:1px solid var(--border);padding:0 28px}
+.tab{padding:14px 20px;font-size:13px;font-weight:500;color:var(--text2);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;display:flex;align-items:center;gap:7px}
+.tab:hover{color:var(--text)}
+.tab.active{color:var(--gold);border-bottom-color:var(--gold)}
+.tab-count{background:var(--surface3);color:var(--text2);font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px}
+.tab.active .tab-count{background:var(--gold-bg);color:var(--gold)}
 
 /* MAIN */
-main {
-  padding: 2rem;
-  max-width: 1400px;
-  margin: 0 auto;
-}
+.main{padding:24px 28px}
+.toolbar{display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+.filter-chip{padding:5px 13px;border-radius:20px;font-size:12px;border:1px solid var(--border2);background:var(--surface2);color:var(--text2);cursor:pointer;transition:all .12s;font-weight:500}
+.filter-chip:hover{color:var(--text)}
+.filter-chip.on{background:var(--gold-bg);border-color:rgba(201,168,76,.4);color:var(--gold)}
+.search{margin-left:auto;background:var(--surface2);border:1px solid var(--border2);color:var(--text);padding:6px 12px;border-radius:var(--r);font-size:12px;font-family:'Inter',sans-serif;width:200px;outline:none}
+.search:focus{border-color:var(--gold)}
+.search::placeholder{color:var(--text3)}
 
-/* TOP STATS */
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
+/* TABLE */
+.table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden}
+table{width:100%;border-collapse:collapse}
+thead{background:var(--surface2);border-bottom:1px solid var(--border)}
+th{padding:10px 14px;text-align:left;font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;font-weight:500;white-space:nowrap}
+tbody tr{border-bottom:1px solid var(--border);transition:background .1s}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:var(--surface2)}
+tbody tr.row-today{background:rgba(34,197,94,.04)}
+tbody tr.row-today:hover{background:rgba(34,197,94,.08)}
+tbody tr.row-tomorrow{background:rgba(59,130,246,.04)}
+tbody tr.row-tomorrow:hover{background:rgba(59,130,246,.08)}
+tbody tr.row-urgent{background:rgba(249,115,22,.04)}
+tbody tr.row-urgent:hover{background:rgba(249,115,22,.08)}
+td{padding:11px 14px;vertical-align:middle}
+.td-name{font-weight:600;color:var(--text)}
+.td-mono{font-variant-numeric:tabular-nums;font-size:13px;color:var(--text2)}
+.td-items{font-size:12px;color:var(--text2);max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
-.stat-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 1.5rem;
-  position: relative;
-  overflow: hidden;
-}
+/* BADGES */
+.day-badge{font-size:10px;padding:2px 7px;border-radius:10px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap;margin-left:5px}
+.day-today{background:var(--green-bg);color:var(--green)}
+.day-tomorrow{background:var(--blue-bg);color:var(--blue)}
+.day-urgent{background:var(--orange-bg);color:var(--orange)}
 
-.stat-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: var(--accent);
-  opacity: 0;
-  transition: opacity 0.3s;
-}
+.status{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:6px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap}
+.s-confirmed{background:var(--green-bg);color:var(--green)}
+.s-verified{background:rgba(34,197,94,.2);color:#4ade80}
+.s-cancelled{background:var(--red-bg);color:var(--red)}
+.s-pending{background:var(--surface3);color:var(--text3)}
+.s-modified{background:var(--yellow-bg);color:var(--yellow)}
+.s-ready{background:var(--purple-bg);color:var(--purple)}
+.s-delivered{background:rgba(34,197,94,.2);color:#4ade80}
 
-.stat-card:hover::before { opacity: 1; }
+.channel{display:inline-flex;align-items:center;gap:4px;font-size:11px;padding:3px 8px;border-radius:5px;font-weight:500}
+.ch-wa{background:rgba(37,211,102,.1);color:#25d366}
+.ch-voice{background:var(--blue-bg);color:var(--blue)}
 
-.stat-label {
-  font-size: 0.72rem;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--muted);
-  margin-bottom: 0.75rem;
-}
+/* ROW ACTIONS */
+.row-actions{display:flex;align-items:center;gap:5px;opacity:0;transition:opacity .15s}
+tbody tr:hover .row-actions{opacity:1}
 
-.stat-value {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 2.8rem;
-  font-weight: 600;
-  color: var(--text);
-  line-height: 1;
-  margin-bottom: 0.4rem;
-}
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:500;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.modal{background:var(--surface);border:1px solid var(--border2);border-radius:var(--r2);width:500px;max-width:92vw;padding:24px;position:relative;max-height:90vh;overflow-y:auto}
+.modal-title{font-size:16px;font-weight:600;margin-bottom:4px}
+.modal-sub{font-size:12px;color:var(--text2);margin-bottom:20px}
+.modal-close{position:absolute;top:16px;right:16px;background:none;border:none;color:var(--text2);font-size:18px;cursor:pointer}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:11px;color:var(--text2);margin-bottom:5px;text-transform:uppercase;letter-spacing:.06em}
+.field input,.field select,.field textarea{width:100%;background:var(--surface2);border:1px solid var(--border2);color:var(--text);padding:8px 12px;border-radius:var(--r);font-size:13px;font-family:'Inter',sans-serif;outline:none}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--gold)}
+.field select option{background:var(--surface2)}
+.field textarea{resize:vertical;min-height:70px}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:20px;padding-top:16px;border-top:1px solid var(--border)}
 
-.stat-sub {
-  font-size: 0.78rem;
-  color: var(--muted);
-}
+/* TOAST */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--surface2);border:1px solid var(--border2);padding:12px 18px;border-radius:var(--r2);font-size:13px;font-weight:500;transform:translateY(80px);opacity:0;transition:all .3s;z-index:600;min-width:200px}
+.toast.show{transform:translateY(0);opacity:1}
+.toast.success{border-color:rgba(34,197,94,.3);color:var(--green)}
+.toast.error{border-color:rgba(239,68,68,.3);color:var(--red)}
+.toast.info{border-color:rgba(59,130,246,.3);color:var(--blue)}
 
-.stat-up { color: #4CAF82; }
-.stat-down { color: var(--red); }
+/* EMPTY/LOADING */
+.empty{padding:60px 20px;text-align:center;color:var(--text3)}
+.empty-icon{font-size:36px;margin-bottom:10px}
+.loading{padding:60px 20px;text-align:center;color:var(--text3)}
+.spinner{width:24px;height:24px;border:2px solid var(--border2);border-top-color:var(--gold);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 10px}
+@keyframes spin{to{transform:rotate(360deg)}}
 
-.stat-icon {
-  position: absolute;
-  top: 1.5rem;
-  right: 1.5rem;
-  font-size: 1.5rem;
-  opacity: 0.3;
-}
+/* LEGEND */
+.legend{display:flex;gap:14px;margin-top:12px;flex-wrap:wrap}
+.leg{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text3)}
 
-/* GRID LAYOUT */
-.grid-2 {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-  margin-bottom: 1.5rem;
-}
-
-.grid-3 {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 1.5rem;
-  margin-bottom: 1.5rem;
-}
-
-/* SECTION CARD */
-.section-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  overflow: hidden;
-}
-
-.section-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1.25rem 1.5rem;
-  border-bottom: 1px solid var(--border);
-}
-
-.section-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.1rem;
-  font-weight: 600;
-}
-
-.section-badge {
-  font-size: 0.72rem;
-  color: var(--muted);
-  background: var(--surface);
-  padding: 3px 10px;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-}
-
-/* RESERVATIONS TABLE */
-.res-table {
-  width: 100%;
-}
-
-.res-row {
-  display: grid;
-  grid-template-columns: 1fr 80px 100px 90px 80px;
-  align-items: center;
-  padding: 1rem 1.5rem;
-  border-bottom: 1px solid var(--border);
-  transition: background 0.15s;
-  cursor: pointer;
-}
-
-.res-row:last-child { border-bottom: none; }
-.res-row:hover { background: rgba(201,145,61,0.04); }
-
-.res-row.header-row {
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--muted);
-  padding: 0.75rem 1.5rem;
-  background: var(--surface);
-}
-
-.res-name {
-  font-weight: 500;
-  font-size: 0.9rem;
-}
-
-.res-phone {
-  font-size: 0.8rem;
-  color: var(--muted);
-  margin-top: 2px;
-}
-
-.res-people {
-  font-size: 0.88rem;
-  text-align: center;
-}
-
-.res-time {
-  font-size: 0.85rem;
-  color: var(--accent2);
-}
-
-.res-zone {
-  font-size: 0.78rem;
-  color: var(--muted);
-}
-
-.status-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 3px 10px;
-  border-radius: 20px;
-  font-size: 0.72rem;
-  font-weight: 500;
-}
-
-.status-confirmed {
-  background: rgba(46,125,82,0.15);
-  color: #4CAF82;
-}
-
-.status-pending {
-  background: rgba(201,145,61,0.15);
-  color: var(--accent);
-}
-
-.status-cancelled {
-  background: rgba(192,57,43,0.15);
-  color: #E57373;
-}
-
-/* CALLS LOG */
-.call-item {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 1rem 1.5rem;
-  border-bottom: 1px solid var(--border);
-  transition: background 0.15s;
-}
-
-.call-item:last-child { border-bottom: none; }
-.call-item:hover { background: rgba(201,145,61,0.04); }
-
-.call-icon {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1rem;
-  flex-shrink: 0;
-}
-
-.call-icon-in { background: rgba(46,125,82,0.15); }
-.call-icon-missed { background: rgba(192,57,43,0.15); }
-.call-icon-transfer { background: rgba(201,145,61,0.15); }
-
-.call-info { flex: 1; }
-
-.call-number {
-  font-size: 0.88rem;
-  font-weight: 500;
-}
-
-.call-detail {
-  font-size: 0.78rem;
-  color: var(--muted);
-  margin-top: 2px;
-}
-
-.call-time {
-  font-size: 0.78rem;
-  color: var(--muted);
-  text-align: right;
-}
-
-.call-duration {
-  font-size: 0.85rem;
-  color: var(--accent2);
-}
-
-/* LANGUAGE CHART */
-.lang-chart {
-  padding: 1.5rem;
-}
-
-.lang-item {
-  margin-bottom: 1.25rem;
-}
-
-.lang-label {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.82rem;
-  margin-bottom: 6px;
-}
-
-.lang-pct { color: var(--accent2); font-weight: 500; }
-
-.lang-bar {
-  height: 6px;
-  background: var(--border);
-  border-radius: 3px;
-  overflow: hidden;
-}
-
-.lang-fill {
-  height: 100%;
-  border-radius: 3px;
-  background: linear-gradient(90deg, var(--accent), var(--accent2));
-  transition: width 1s ease;
-}
-
-/* PEAK HOURS */
-.peak-chart {
-  padding: 1.5rem;
-  display: flex;
-  align-items: flex-end;
-  gap: 6px;
-  height: 120px;
-}
-
-.peak-bar-wrap {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  height: 100%;
-  justify-content: flex-end;
-}
-
-.peak-bar {
-  width: 100%;
-  border-radius: 3px 3px 0 0;
-  background: var(--border);
-  transition: background 0.2s;
-  cursor: pointer;
-  min-height: 4px;
-}
-
-.peak-bar.active { background: linear-gradient(180deg, var(--accent2), var(--accent)); }
-.peak-bar:hover { background: var(--accent); }
-
-.peak-label {
-  font-size: 0.65rem;
-  color: var(--muted);
-  text-align: center;
-}
-
-/* TODAY SUMMARY */
-.today-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1px;
-  background: var(--border);
-}
-
-.today-cell {
-  background: var(--card);
-  padding: 1.25rem 1.5rem;
-  text-align: center;
-}
-
-.today-val {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 2rem;
-  font-weight: 600;
-  color: var(--accent2);
-}
-
-.today-lbl {
-  font-size: 0.75rem;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin-top: 4px;
-}
-
-/* FOOTER */
-footer {
-  text-align: center;
-  padding: 1.5rem;
-  font-size: 0.75rem;
-  color: var(--muted);
-  border-top: 1px solid var(--border);
-  margin-top: 1rem;
-}
-
-footer strong { color: var(--accent); }
-
-/* RESPONSIVE */
-@media (max-width: 900px) {
-  .stats-grid { grid-template-columns: repeat(2, 1fr); }
-  .grid-2, .grid-3 { grid-template-columns: 1fr; }
-  main { padding: 1rem; }
-}
+/* ORDER CARD extras */
+.items-full{font-size:12px;color:var(--text2);line-height:1.6}
+.total-badge{font-size:13px;font-weight:700;color:var(--gold)}
 </style>
 </head>
 <body>
 
 <header>
-  <div class="logo">La Penela <span>· Dashboard</span></div>
+  <div class="logo">
+    <div class="logo-mark">🍷</div>
+    <div>
+      <div class="logo-name">La Penela Moraleja</div>
+      <div class="logo-tag">Panel de Gestión</div>
+    </div>
+  </div>
   <div class="header-right">
-    <div class="live-badge"><div class="live-dot"></div> AI Activo</div>
-    <div class="date-badge" id="currentDate"></div>
+    <div class="live-pill"><div class="live-dot"></div>En vivo</div>
+    <span class="last-update" id="last-update"></span>
+    <button class="btn" onclick="loadAll()">↻ Actualizar</button>
+    <button class="btn btn-gold" onclick="openNewReservation()">+ Nueva Reserva</button>
   </div>
 </header>
 
-<main>
+<div class="stats" id="stats-bar">
+  <div class="stat"><div class="stat-val c-gold" id="s-total">—</div><div class="stat-lbl">Reservas Total</div></div>
+  <div class="stat"><div class="stat-val c-green" id="s-today">—</div><div class="stat-lbl">Hoy</div><div class="stat-sub" id="s-today-g"></div></div>
+  <div class="stat"><div class="stat-val c-blue" id="s-tomorrow">—</div><div class="stat-lbl">Mañana</div><div class="stat-sub" id="s-tom-g"></div></div>
+  <div class="stat"><div class="stat-val c-green" id="s-verified">—</div><div class="stat-lbl">Verificadas ✓✓</div></div>
+  <div class="stat"><div class="stat-val c-orange" id="s-orders">—</div><div class="stat-lbl">Pedidos Hoy</div></div>
+  <div class="stat"><div class="stat-val c-red" id="s-cancelled">—</div><div class="stat-lbl">Canceladas</div></div>
+</div>
 
-  <!-- STATS -->
-  <div class="stats-grid">
-    <div class="stat-card">
-      <div class="stat-icon">📞</div>
-      <div class="stat-label">Llamadas Hoy</div>
-      <div class="stat-value">47</div>
-      <div class="stat-sub"><span class="stat-up">↑ 12%</span> vs ayer</div>
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('reservations',this)">📋 Reservas <span class="tab-count" id="tc-res">0</span></div>
+  <div class="tab" onclick="switchTab('orders',this)">🛍️ Pedidos para Llevar <span class="tab-count" id="tc-ord">0</span></div>
+</div>
+
+<div class="main">
+  <!-- RESERVATIONS TAB -->
+  <div id="tab-reservations">
+    <div class="toolbar">
+      <button class="filter-chip on" onclick="setResFilter('all',this)">Todas</button>
+      <button class="filter-chip" onclick="setResFilter('today',this)">Hoy</button>
+      <button class="filter-chip" onclick="setResFilter('tomorrow',this)">Mañana</button>
+      <button class="filter-chip" onclick="setResFilter('upcoming',this)">Próximas</button>
+      <button class="filter-chip" onclick="setResFilter('confirmed',this)">Confirmadas ✓</button>
+      <button class="filter-chip" onclick="setResFilter('verified',this)">Verificadas ✓✓</button>
+      <button class="filter-chip" onclick="setResFilter('pending',this)">Pendientes</button>
+      <button class="filter-chip" onclick="setResFilter('cancelled',this)">Canceladas</button>
+      <input class="search" type="text" placeholder="🔍  Buscar nombre o teléfono..." id="res-search" oninput="renderReservations()">
     </div>
-    <div class="stat-card">
-      <div class="stat-icon">📅</div>
-      <div class="stat-label">Reservas Hoy</div>
-      <div class="stat-value">18</div>
-      <div class="stat-sub"><span class="stat-up">↑ 3</span> desde ayer</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th><th>Nombre</th><th>Fecha</th><th>Hora</th><th>Personas</th><th>Teléfono</th><th>Canal</th><th>Estado</th><th>Notas</th><th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="res-tbody">
+          <tr><td colspan="10"><div class="loading"><div class="spinner"></div>Cargando reservas...</div></td></tr>
+        </tbody>
+      </table>
     </div>
-    <div class="stat-card">
-      <div class="stat-icon">👥</div>
-      <div class="stat-label">Comensales Esperados</div>
-      <div class="stat-value">124</div>
-      <div class="stat-sub">Comida: 72 · Cena: 52</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-icon">✅</div>
-      <div class="stat-label">Tasa de Atención</div>
-      <div class="stat-value">98%</div>
-      <div class="stat-sub"><span class="stat-up">1 perdida</span> de 47</div>
-    </div>
-  </div>
-
-  <!-- RESERVATIONS + CALLS -->
-  <div class="grid-3">
-
-    <!-- RESERVATIONS -->
-    <div class="section-card">
-      <div class="section-head">
-        <div class="section-title">Reservas de Hoy</div>
-        <div class="section-badge">Lunes 2 Jun 2026</div>
-      </div>
-      <div class="res-table">
-        <div class="res-row header-row">
-          <div>Cliente</div>
-          <div style="text-align:center">Personas</div>
-          <div>Hora</div>
-          <div>Zona</div>
-          <div>Estado</div>
-        </div>
-        <div class="res-row">
-          <div><div class="res-name">María García</div><div class="res-phone">+34 612 345 678</div></div>
-          <div class="res-people">4</div>
-          <div class="res-time">13:00</div>
-          <div class="res-zone">Salón</div>
-          <div><span class="status-badge status-confirmed">✓ Conf.</span></div>
-        </div>
-        <div class="res-row">
-          <div><div class="res-name">James Wilson</div><div class="res-phone">+44 789 012 345</div></div>
-          <div class="res-people">2</div>
-          <div class="res-time">13:30</div>
-          <div class="res-zone">Terraza</div>
-          <div><span class="status-badge status-confirmed">✓ Conf.</span></div>
-        </div>
-        <div class="res-row">
-          <div><div class="res-name">Pierre Dubois</div><div class="res-phone">+33 612 345 678</div></div>
-          <div class="res-people">6</div>
-          <div class="res-time">14:00</div>
-          <div class="res-zone">Salón</div>
-          <div><span class="status-badge status-pending">⏳ Pend.</span></div>
-        </div>
-        <div class="res-row">
-          <div><div class="res-name">Ana Martínez</div><div class="res-phone">+34 698 765 432</div></div>
-          <div class="res-people">8</div>
-          <div class="res-time">15:15</div>
-          <div class="res-zone">Salón</div>
-          <div><span class="status-badge status-confirmed">✓ Conf.</span></div>
-        </div>
-        <div class="res-row">
-          <div><div class="res-name">Roberto Leal</div><div class="res-phone">+34 677 123 456</div></div>
-          <div class="res-people">3</div>
-          <div class="res-time">21:00</div>
-          <div class="res-zone">Terraza</div>
-          <div><span class="status-badge status-confirmed">✓ Conf.</span></div>
-        </div>
-        <div class="res-row">
-          <div><div class="res-name">Sofia Chen</div><div class="res-phone">+34 655 987 654</div></div>
-          <div class="res-people">2</div>
-          <div class="res-time">21:30</div>
-          <div class="res-zone">Barra</div>
-          <div><span class="status-badge status-pending">⏳ Pend.</span></div>
-        </div>
-        <div class="res-row">
-          <div><div class="res-name">Carlos Ruiz</div><div class="res-phone">+34 611 222 333</div></div>
-          <div class="res-people">10</div>
-          <div class="res-time">22:00</div>
-          <div class="res-zone">Salón</div>
-          <div><span class="status-badge status-cancelled">✗ Cancel.</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- RIGHT COLUMN -->
-    <div style="display:flex;flex-direction:column;gap:1.5rem;">
-
-      <!-- TODAY SUMMARY -->
-      <div class="section-card">
-        <div class="section-head">
-          <div class="section-title">Resumen del Día</div>
-        </div>
-        <div class="today-grid">
-          <div class="today-cell">
-            <div class="today-val">72</div>
-            <div class="today-lbl">Comida</div>
-          </div>
-          <div class="today-cell">
-            <div class="today-val">52</div>
-            <div class="today-lbl">Cena</div>
-          </div>
-          <div class="today-cell">
-            <div class="today-val">3</div>
-            <div class="today-lbl">Idiomas</div>
-          </div>
-          <div class="today-cell">
-            <div class="today-val">4m</div>
-            <div class="today-lbl">Duración Media</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- LANGUAGES -->
-      <div class="section-card">
-        <div class="section-head">
-          <div class="section-title">Idiomas</div>
-          <div class="section-badge">Hoy</div>
-        </div>
-        <div class="lang-chart">
-          <div class="lang-item">
-            <div class="lang-label"><span>🇪🇸 Español</span><span class="lang-pct">68%</span></div>
-            <div class="lang-bar"><div class="lang-fill" style="width:68%"></div></div>
-          </div>
-          <div class="lang-item">
-            <div class="lang-label"><span>🇬🇧 English</span><span class="lang-pct">22%</span></div>
-            <div class="lang-bar"><div class="lang-fill" style="width:22%"></div></div>
-          </div>
-          <div class="lang-item">
-            <div class="lang-label"><span>🇫🇷 Français</span><span class="lang-pct">10%</span></div>
-            <div class="lang-bar"><div class="lang-fill" style="width:10%"></div></div>
-          </div>
-        </div>
-      </div>
-
+    <div class="legend">
+      <div class="leg">◯ Pendiente</div>
+      <div class="leg" style="color:var(--green)">✓ Confirmada al reservar</div>
+      <div class="leg" style="color:#4ade80">✓✓ Verificada por llamada</div>
+      <div class="leg" style="color:var(--yellow)">~ Modificada</div>
+      <div class="leg" style="color:var(--red)">✗ Cancelada</div>
     </div>
   </div>
 
-  <!-- CALLS + PEAK HOURS -->
-  <div class="grid-2">
-
-    <!-- CALLS LOG -->
-    <div class="section-card">
-      <div class="section-head">
-        <div class="section-title">Últimas Llamadas</div>
-        <div class="section-badge">En tiempo real</div>
-      </div>
-      <div class="call-item">
-        <div class="call-icon call-icon-in">📞</div>
-        <div class="call-info">
-          <div class="call-number">+34 612 345 678</div>
-          <div class="call-detail">Reserva para 4 — Conf. para el martes 13:00 · 🇪🇸</div>
-        </div>
-        <div class="call-time"><div class="call-duration">3m 42s</div><div>hace 2 min</div></div>
-      </div>
-      <div class="call-item">
-        <div class="call-icon call-icon-in">📞</div>
-        <div class="call-info">
-          <div class="call-number">+44 789 012 345</div>
-          <div class="call-detail">Menu question — Fish dishes · 🇬🇧</div>
-        </div>
-        <div class="call-time"><div class="call-duration">1m 18s</div><div>hace 8 min</div></div>
-      </div>
-      <div class="call-item">
-        <div class="call-icon call-icon-transfer">🔀</div>
-        <div class="call-info">
-          <div class="call-number">+34 677 890 123</div>
-          <div class="call-detail">Transferida al equipo — evento 80 personas · 🇪🇸</div>
-        </div>
-        <div class="call-time"><div class="call-duration">2m 05s</div><div>hace 15 min</div></div>
-      </div>
-      <div class="call-item">
-        <div class="call-icon call-icon-missed">❌</div>
-        <div class="call-info">
-          <div class="call-number">+34 655 432 109</div>
-          <div class="call-detail">Llamada perdida — sin respuesta</div>
-        </div>
-        <div class="call-time"><div style="color:#E57373;font-size:0.85rem">Perdida</div><div>hace 22 min</div></div>
-      </div>
-      <div class="call-item">
-        <div class="call-icon call-icon-in">📞</div>
-        <div class="call-info">
-          <div class="call-number">+33 612 345 678</div>
-          <div class="call-detail">Réservation pour 6 — Mercredi 20:00 · 🇫🇷</div>
-        </div>
-        <div class="call-time"><div class="call-duration">4m 11s</div><div>hace 31 min</div></div>
-      </div>
-      <div class="call-item">
-        <div class="call-icon call-icon-in">📞</div>
-        <div class="call-info">
-          <div class="call-number">+34 698 765 432</div>
-          <div class="call-detail">Consulta horario y terraza · 🇪🇸</div>
-        </div>
-        <div class="call-time"><div class="call-duration">0m 52s</div><div>hace 45 min</div></div>
-      </div>
+  <!-- ORDERS TAB -->
+  <div id="tab-orders" style="display:none">
+    <div class="toolbar">
+      <button class="filter-chip on" onclick="setOrdFilter('all',this)">Todos</button>
+      <button class="filter-chip" onclick="setOrdFilter('today',this)">Hoy</button>
+      <button class="filter-chip" onclick="setOrdFilter('pending',this)">Pendientes</button>
+      <button class="filter-chip" onclick="setOrdFilter('ready',this)">Listos 🟣</button>
+      <button class="filter-chip" onclick="setOrdFilter('delivered',this)">Entregados ✓✓</button>
+      <button class="filter-chip" onclick="setOrdFilter('cancelled',this)">Cancelados</button>
+      <input class="search" type="text" placeholder="🔍  Buscar nombre o teléfono..." id="ord-search" oninput="renderOrders()">
     </div>
-
-    <!-- PEAK HOURS -->
-    <div class="section-card">
-      <div class="section-head">
-        <div class="section-title">Horas Pico de Llamadas</div>
-        <div class="section-badge">Últimos 7 días</div>
-      </div>
-      <div class="peak-chart" id="peakChart"></div>
-      <div style="padding:0 1.5rem 1.5rem;">
-        <div style="font-size:0.78rem;color:var(--muted);margin-bottom:1rem;">Motivos de llamada</div>
-        <div style="display:flex;flex-direction:column;gap:0.6rem;">
-          <div style="display:flex;justify-content:space-between;font-size:0.83rem;">
-            <span>📅 Reservas</span><span style="color:var(--accent2)">61%</span>
-          </div>
-          <div style="display:flex;justify-content:space-between;font-size:0.83rem;">
-            <span>🍽️ Info menú</span><span style="color:var(--accent2)">19%</span>
-          </div>
-          <div style="display:flex;justify-content:space-between;font-size:0.83rem;">
-            <span>🕐 Horarios</span><span style="color:var(--accent2)">12%</span>
-          </div>
-          <div style="display:flex;justify-content:space-between;font-size:0.83rem;">
-            <span>🔀 Transferidas</span><span style="color:var(--accent2)">5%</span>
-          </div>
-          <div style="display:flex;justify-content:space-between;font-size:0.83rem;">
-            <span>❌ Perdidas</span><span style="color:#E57373">3%</span>
-          </div>
-        </div>
-      </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th><th>Nombre</th><th>Fecha Recogida</th><th>Hora</th><th>Artículos</th><th>Total</th><th>Teléfono</th><th>Estado</th><th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="ord-tbody">
+          <tr><td colspan="9"><div class="loading"><div class="spinner"></div>Cargando pedidos...</div></td></tr>
+        </tbody>
+      </table>
     </div>
-
+    <div class="legend">
+      <div class="leg">◯ Pendiente — recibido, no preparado</div>
+      <div class="leg" style="color:var(--purple)">● Listo — preparado para recoger</div>
+      <div class="leg" style="color:#4ade80">✓✓ Entregado</div>
+      <div class="leg" style="color:var(--red)">✗ Cancelado</div>
+    </div>
   </div>
+</div>
 
-</main>
+<!-- EDIT RESERVATION MODAL -->
+<div class="modal-overlay" id="edit-res-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('edit-res-modal')">✕</button>
+    <div class="modal-title" id="erm-title">Editar Reserva</div>
+    <div class="modal-sub">Modifica los datos de la reserva</div>
+    <input type="hidden" id="erm-row">
+    <div class="field-row">
+      <div class="field"><label>Nombre</label><input id="erm-name" type="text"></div>
+      <div class="field"><label>Teléfono</label><input id="erm-phone" type="text"></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Fecha (dd-mm-yyyy)</label><input id="erm-date" type="text"></div>
+      <div class="field"><label>Hora</label><input id="erm-time" type="text" placeholder="20:00"></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Personas</label><input id="erm-guests" type="number" min="1"></div>
+      <div class="field"><label>Estado</label>
+        <select id="erm-status">
+          <option value="CONFIRMED">✓ Confirmada</option>
+          <option value="VERIFIED">✓✓ Verificada</option>
+          <option value="MODIFIED">~ Modificada</option>
+          <option value="CANCELLED">✗ Cancelada</option>
+          <option value="PENDING">◯ Pendiente</option>
+        </select>
+      </div>
+    </div>
+    <div class="field"><label>Notas (alergias, ocasión especial, preferencias...)</label><textarea id="erm-notes"></textarea></div>
+    <div class="modal-actions">
+      <button class="btn btn-red btn-sm" onclick="cancelReservation()">✗ Cancelar reserva</button>
+      <div style="flex:1"></div>
+      <button class="btn" onclick="closeModal('edit-res-modal')">Cerrar</button>
+      <button class="btn btn-gold" onclick="saveReservation()">Guardar cambios</button>
+    </div>
+  </div>
+</div>
 
-<footer>
-  Powered by <strong>TalkServe AI</strong> · talkserveai.net · La Penela Moraleja, Alcobendas
-</footer>
+<!-- NEW RESERVATION MODAL -->
+<div class="modal-overlay" id="new-res-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('new-res-modal')">✕</button>
+    <div class="modal-title">Nueva Reserva</div>
+    <div class="modal-sub">Añadir reserva manualmente</div>
+    <div class="field-row">
+      <div class="field"><label>Nombre</label><input id="nrm-name" type="text"></div>
+      <div class="field"><label>Teléfono</label><input id="nrm-phone" type="text"></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Fecha (dd-mm-yyyy)</label><input id="nrm-date" type="text"></div>
+      <div class="field"><label>Hora</label><input id="nrm-time" type="text" placeholder="20:00"></div>
+    </div>
+    <div class="field"><label>Personas</label><input id="nrm-guests" type="number" min="1" value="2"></div>
+    <div class="field"><label>Notas</label><input id="nrm-notes" type="text" placeholder="Opcional..."></div>
+    <div class="modal-actions">
+      <button class="btn" onclick="closeModal('new-res-modal')">Cancelar</button>
+      <button class="btn btn-gold" onclick="saveNewReservation()">Crear reserva</button>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT ORDER MODAL -->
+<div class="modal-overlay" id="edit-ord-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('edit-ord-modal')">✕</button>
+    <div class="modal-title" id="eom-title">Editar Pedido</div>
+    <div class="modal-sub">Actualiza el estado del pedido</div>
+    <input type="hidden" id="eom-row">
+    <div class="field-row">
+      <div class="field"><label>Nombre</label><input id="eom-name" type="text"></div>
+      <div class="field"><label>Teléfono</label><input id="eom-phone" type="text"></div>
+    </div>
+    <div class="field"><label>Artículos</label><textarea id="eom-items"></textarea></div>
+    <div class="field-row">
+      <div class="field"><label>Fecha Recogida</label><input id="eom-date" type="text"></div>
+      <div class="field"><label>Hora Recogida</label><input id="eom-time" type="text"></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Total</label><input id="eom-total" type="text"></div>
+      <div class="field"><label>Estado</label>
+        <select id="eom-status">
+          <option value="PENDING">◯ Pendiente</option>
+          <option value="READY">● Listo para recoger</option>
+          <option value="DELIVERED">✓✓ Entregado</option>
+          <option value="CANCELLED">✗ Cancelado</option>
+        </select>
+      </div>
+    </div>
+    <div class="field"><label>Notas</label><input id="eom-notes" type="text"></div>
+    <div class="modal-actions">
+      <button class="btn btn-red btn-sm" onclick="quickUpdateOrder('CANCELLED')">✗ Cancelar</button>
+      <button class="btn btn-green btn-sm" onclick="quickUpdateOrder('READY')">● Marcar listo</button>
+      <div style="flex:1"></div>
+      <button class="btn" onclick="closeModal('edit-ord-modal')">Cerrar</button>
+      <button class="btn btn-gold" onclick="saveOrder()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
 
 <script>
-// Set current date
-const d = new Date();
-const days = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
-const months = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
-document.getElementById('currentDate').textContent = `${days[d.getDay()]} ${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
+const API = 'https://web-production-03008.up.railway.app';
+let resData = [], ordData = [];
+let resFilter = 'all', ordFilter = 'all';
+let currentTab = 'reservations';
 
-// Peak hours chart
-const hours = ['8h','9h','10h','11h','12h','13h','14h','15h','16h','17h','18h','19h','20h','21h','22h','23h','0h'];
-const vals =   [3,   5,   8,   12,  18,  35,  42,  38,  20,  10,  8,   12,  25,  40,  38,  22,  8];
-const max = Math.max(...vals);
-const chart = document.getElementById('peakChart');
+// DATE UTILS — robust, handles all formats
+function parseDate(raw) {
+  if (!raw) return null;
+  raw = String(raw).trim().replace(/'/g,'');
+  let m = raw.match(/^(\d{1,2})[-\/](\d{1,2})[-\/](\d{4})$/);
+  if (m) return new Date(+m[3], +m[2]-1, +m[1]);
+  m = raw.match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (m) return new Date(+m[1], +m[2]-1, +m[3]);
+  const mo = {ene:0,feb:1,mar:2,abr:3,may:4,jun:5,jul:6,ago:7,sep:8,oct:9,nov:10,dic:11};
+  m = raw.match(/(\d{1,2})\s+de\s+(\w+)/i);
+  if (m) {
+    const mk = Object.keys(mo).find(k=>m[2].toLowerCase().startsWith(k));
+    if (mk!==undefined) {
+      const yr = (raw.match(/\d{4}/)||[new Date().getFullYear()])[0];
+      return new Date(+yr, mo[mk], +m[1]);
+    }
+  }
+  return null;
+}
+const today = () => { const d=new Date(); return new Date(d.getFullYear(),d.getMonth(),d.getDate()); }
+const tomorrow = () => { const d=today(); d.setDate(d.getDate()+1); return d; }
+const sameDay = (a,b) => a&&b&&a.getFullYear()===b.getFullYear()&&a.getMonth()===b.getMonth()&&a.getDate()===b.getDate();
+const inDays = n => { const d=today(); d.setDate(d.getDate()+n); return d; }
 
-hours.forEach((h, i) => {
-  const wrap = document.createElement('div');
-  wrap.className = 'peak-bar-wrap';
-  
-  const bar = document.createElement('div');
-  bar.className = 'peak-bar' + (vals[i] >= 35 ? ' active' : '');
-  bar.style.height = `${(vals[i]/max)*80}px`;
-  bar.title = `${h}: ${vals[i]} llamadas`;
-  
-  const lbl = document.createElement('div');
-  lbl.className = 'peak-label';
-  lbl.textContent = h;
-  
-  wrap.appendChild(bar);
-  wrap.appendChild(lbl);
-  chart.appendChild(wrap);
-});
+function getStatus(raw) {
+  const s = String(raw||'').toUpperCase().trim();
+  if (s==='CANCELLED'||s==='CANCELADA'||s==='CANCELADO') return 'cancelled';
+  if (s==='VERIFIED'||s==='VERIFICADA') return 'verified';
+  if (s==='MODIFIED'||s==='MODIFICADA') return 'modified';
+  if (s==='READY'||s==='LISTO') return 'ready';
+  if (s==='DELIVERED'||s==='ENTREGADO') return 'delivered';
+  if (s==='CONFIRMED'||s==='CONFIRMADA'||s==='CONFIRMADO') return 'confirmed';
+  return 'pending';
+}
+
+function statusBadge(raw, isOrder=false) {
+  const s = getStatus(raw);
+  const map = {
+    confirmed:['s-confirmed','✓ Confirmada'],
+    verified: ['s-verified','✓✓ Verificada'],
+    cancelled:['s-cancelled','✗ Cancelada'],
+    modified: ['s-modified','~ Modificada'],
+    pending:  ['s-pending','◯ Pendiente'],
+    ready:    ['s-ready','● Listo'],
+    delivered:['s-delivered','✓✓ Entregado'],
+  };
+  const [cls,label] = map[s]||['s-pending','◯ Pendiente'];
+  return `<span class="status ${cls}">${label}</span>`;
+}
+
+// STATS
+function updateStats() {
+  const td=today(), tm=tomorrow();
+  const todayRes = resData.filter(r=>sameDay(parseDate(r.Date),td));
+  const tomRes = resData.filter(r=>sameDay(parseDate(r.Date),tm));
+  const verified = resData.filter(r=>getStatus(r.Status)==='verified').length;
+  const canc = resData.filter(r=>getStatus(r.Status)==='cancelled').length;
+  const todayOrders = ordData.filter(r=>sameDay(parseDate(r.PickupDate),td)).length;
+  const todayG = todayRes.reduce((a,r)=>a+(+r.Guests||0),0);
+  const tomG = tomRes.reduce((a,r)=>a+(+r.Guests||0),0);
+  document.getElementById('s-total').textContent = resData.length;
+  document.getElementById('s-today').textContent = todayRes.length;
+  document.getElementById('s-today-g').textContent = todayG ? `${todayG} personas` : '';
+  document.getElementById('s-tomorrow').textContent = tomRes.length;
+  document.getElementById('s-tom-g').textContent = tomG ? `${tomG} personas` : '';
+  document.getElementById('s-verified').textContent = verified;
+  document.getElementById('s-orders').textContent = todayOrders;
+  document.getElementById('s-cancelled').textContent = canc;
+  document.getElementById('tc-res').textContent = resData.length;
+  document.getElementById('tc-ord').textContent = ordData.length;
+}
+
+// TAB
+function switchTab(tab, el) {
+  currentTab = tab;
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('tab-reservations').style.display = tab==='reservations'?'block':'none';
+  document.getElementById('tab-orders').style.display = tab==='orders'?'block':'none';
+}
+
+// RESERVATIONS
+function setResFilter(f, btn) {
+  resFilter = f;
+  document.querySelectorAll('#tab-reservations .filter-chip').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  renderReservations();
+}
+
+function renderReservations() {
+  const td=today(), tm=tomorrow(), search=document.getElementById('res-search').value.toLowerCase();
+  let rows = resData.filter((r,i) => {
+    const name = String(r.Name||'').toLowerCase();
+    const phone = String(r.Phone||'').toLowerCase();
+    if (search && !name.includes(search) && !phone.includes(search)) return false;
+    const d = parseDate(r.Date);
+    const s = getStatus(r.Status);
+    if (resFilter==='today') return sameDay(d,td);
+    if (resFilter==='tomorrow') return sameDay(d,tm);
+    if (resFilter==='upcoming') return d && d>=td;
+    if (resFilter==='confirmed') return s==='confirmed';
+    if (resFilter==='verified') return s==='verified';
+    if (resFilter==='pending') return s==='pending';
+    if (resFilter==='cancelled') return s==='cancelled';
+    return true;
+  }).sort((a,b)=>(parseDate(a.Date)||new Date(9999,0,1))-(parseDate(b.Date)||new Date(9999,0,1)));
+
+  const tbody = document.getElementById('res-tbody');
+  if (!rows.length) {
+    tbody.innerHTML=`<tr><td colspan="10"><div class="empty"><div class="empty-icon">📋</div>No hay reservas para este filtro</div></td></tr>`;
+    return;
+  }
+  tbody.innerHTML = rows.map((r,i) => {
+    const d = parseDate(r.Date);
+    const isToday = sameDay(d,td), isTom = sameDay(d,tm);
+    const rowClass = isToday?'row-today':isTom?'row-tomorrow':'';
+    const badge = isToday?'<span class="day-badge day-today">Hoy</span>':isTom?'<span class="day-badge day-tomorrow">Mañana</span>':'';
+    const rowNum = resData.indexOf(r)+2;
+    return `<tr class="${rowClass}">
+      <td class="td-mono" style="color:var(--text3)">${i+1}</td>
+      <td class="td-name">${r.Name||'—'}</td>
+      <td><span class="td-mono">${r.Date||'—'}</span>${badge}</td>
+      <td class="td-mono">${r.Time||'—'}</td>
+      <td class="td-mono">${r.Guests||'—'} 👤</td>
+      <td class="td-mono">${r.Phone||'—'}</td>
+      <td><span class="channel ch-wa">💬 WA</span></td>
+      <td>${statusBadge(r.Status)}</td>
+      <td class="td-items">${r.Notes||'—'}</td>
+      <td><div class="row-actions">
+        <button class="btn btn-sm" onclick='openEditRes(${rowNum},${JSON.stringify(r).replace(/'/g,"&#39;")})'>✎</button>
+        <button class="btn btn-sm btn-red" onclick="quickCancelRes(${rowNum})">✗</button>
+      </div></td>
+    </tr>`;
+  }).join('');
+}
+
+// ORDERS
+function setOrdFilter(f, btn) {
+  ordFilter = f;
+  document.querySelectorAll('#tab-orders .filter-chip').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  renderOrders();
+}
+
+function renderOrders() {
+  const td=today(), search=document.getElementById('ord-search').value.toLowerCase();
+  let rows = ordData.filter(r => {
+    const name = String(r.Name||'').toLowerCase();
+    const phone = String(r.Phone||'').toLowerCase();
+    if (search && !name.includes(search) && !phone.includes(search)) return false;
+    const d = parseDate(r.PickupDate);
+    const s = getStatus(r.Status);
+    if (ordFilter==='today') return sameDay(d,td);
+    if (ordFilter==='pending') return s==='pending';
+    if (ordFilter==='ready') return s==='ready';
+    if (ordFilter==='delivered') return s==='delivered';
+    if (ordFilter==='cancelled') return s==='cancelled';
+    return true;
+  }).sort((a,b)=>(parseDate(a.PickupDate)||new Date(9999,0,1))-(parseDate(b.PickupDate)||new Date(9999,0,1)));
+
+  const tbody = document.getElementById('ord-tbody');
+  if (!rows.length) {
+    tbody.innerHTML=`<tr><td colspan="9"><div class="empty"><div class="empty-icon">🛍️</div>No hay pedidos para este filtro</div></td></tr>`;
+    return;
+  }
+  tbody.innerHTML = rows.map((r,i) => {
+    const d = parseDate(r.PickupDate);
+    const isToday = sameDay(d,td);
+    const rowNum = ordData.indexOf(r)+2;
+    const badge = isToday?'<span class="day-badge day-today">Hoy</span>':'';
+    return `<tr class="${isToday?'row-today':''}">
+      <td class="td-mono" style="color:var(--text3)">${i+1}</td>
+      <td class="td-name">${r.Name||'—'}</td>
+      <td><span class="td-mono">${r.PickupDate||'—'}</span>${badge}</td>
+      <td class="td-mono">${r.PickupTime||'—'}</td>
+      <td class="td-items" title="${r.Items||''}">${r.Items||'—'}</td>
+      <td class="total-badge">${r.Total?r.Total+'€':'—'}</td>
+      <td class="td-mono">${r.Phone||'—'}</td>
+      <td>${statusBadge(r.Status,true)}</td>
+      <td><div class="row-actions">
+        <button class="btn btn-sm btn-green" onclick="markOrderReady(${rowNum})">● Listo</button>
+        <button class="btn btn-sm" onclick='openEditOrd(${rowNum},${JSON.stringify(r).replace(/'/g,"&#39;")})'>✎</button>
+        <button class="btn btn-sm btn-red" onclick="quickCancelOrd(${rowNum})">✗</button>
+      </div></td>
+    </tr>`;
+  }).join('');
+}
+
+// LOAD DATA
+async function loadAll() {
+  try {
+    const [resRes, ordRes] = await Promise.all([
+      fetch(`${API}/get-reservations`),
+      fetch(`${API}/get-orders`)
+    ]);
+    const resJson = await resRes.json();
+    const ordJson = await ordRes.json();
+    resData = resJson.reservations || [];
+    ordData = ordJson.orders || [];
+    updateStats();
+    renderReservations();
+    renderOrders();
+    const now = new Date();
+    document.getElementById('last-update').textContent = `Actualizado: ${now.getHours()}:${String(now.getMinutes()).padStart(2,'0')}`;
+  } catch(e) {
+    showToast('Error al cargar datos: '+e.message,'error');
+  }
+}
+
+// RESERVATION ACTIONS
+function openEditRes(rowNum, r) {
+  document.getElementById('erm-row').value = rowNum;
+  document.getElementById('erm-name').value = r.Name||'';
+  document.getElementById('erm-phone').value = r.Phone||'';
+  document.getElementById('erm-date').value = r.Date||'';
+  document.getElementById('erm-time').value = r.Time||'';
+  document.getElementById('erm-guests').value = r.Guests||'';
+  document.getElementById('erm-notes').value = r.Notes||'';
+  document.getElementById('erm-status').value = getStatus(r.Status).toUpperCase();
+  document.getElementById('erm-title').textContent = `Editar — ${r.Name}`;
+  document.getElementById('edit-res-modal').classList.add('open');
+}
+
+function openNewReservation() {
+  document.getElementById('new-res-modal').classList.add('open');
+}
+
+async function saveReservation() {
+  const row = +document.getElementById('erm-row').value;
+  const fields = {
+    Name:document.getElementById('erm-name').value,
+    Phone:document.getElementById('erm-phone').value,
+    Date:document.getElementById('erm-date').value,
+    Time:document.getElementById('erm-time').value,
+    Guests:document.getElementById('erm-guests').value,
+    Status:document.getElementById('erm-status').value,
+    Notes:document.getElementById('erm-notes').value,
+  };
+  try {
+    for (const [field,value] of Object.entries(fields)) {
+      await fetch(`${API}/update-reservation`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({row,field,value})});
+    }
+    closeModal('edit-res-modal');
+    showToast('✓ Reserva actualizada','success');
+    await loadAll();
+  } catch(e){showToast('Error: '+e.message,'error')}
+}
+
+async function cancelReservation() {
+  const row = +document.getElementById('erm-row').value;
+  await fetch(`${API}/update-reservation`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({row,field:'Status',value:'CANCELLED'})});
+  closeModal('edit-res-modal');
+  showToast('Reserva cancelada','error');
+  await loadAll();
+}
+
+async function quickCancelRes(row) {
+  if (!confirm('¿Cancelar esta reserva?')) return;
+  await fetch(`${API}/update-reservation`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({row,field:'Status',value:'CANCELLED'})});
+  showToast('Reserva cancelada','error');
+  await loadAll();
+}
+
+async function saveNewReservation() {
+  const name=document.getElementById('nrm-name').value;
+  const phone=document.getElementById('nrm-phone').value;
+  const date=document.getElementById('nrm-date').value;
+  const time=document.getElementById('nrm-time').value;
+  const guests=document.getElementById('nrm-guests').value;
+  const notes=document.getElementById('nrm-notes').value;
+  if (!name||!date||!time){showToast('Rellena nombre, fecha y hora','error');return}
+  await fetch(`${API}/voice-reservation`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,phone,date,time,guests,notes})});
+  closeModal('new-res-modal');
+  showToast('✓ Reserva creada','success');
+  await loadAll();
+}
+
+// ORDER ACTIONS
+function openEditOrd(rowNum, r) {
+  document.getElementById('eom-row').value = rowNum;
+  document.getElementById('eom-name').value = r.Name||'';
+  document.getElementById('eom-phone').value = r.Phone||'';
+  document.getElementById('eom-items').value = r.Items||'';
+  document.getElementById('eom-date').value = r.PickupDate||'';
+  document.getElementById('eom-time').value = r.PickupTime||'';
+  document.getElementById('eom-total').value = r.Total||'';
+  document.getElementById('eom-notes').value = r.Notes||'';
+  document.getElementById('eom-status').value = getStatus(r.Status).toUpperCase();
+  document.getElementById('eom-title').textContent = `Pedido — ${r.Name}`;
+  document.getElementById('edit-ord-modal').classList.add('open');
+}
+
+async function saveOrder() {
+  const row = +document.getElementById('eom-row').value;
+  const fields = {
+    Name:document.getElementById('eom-name').value,
+    Phone:document.getElementById('eom-phone').value,
+    Items:document.getElementById('eom-items').value,
+    PickupDate:document.getElementById('eom-date').value,
+    PickupTime:document.getElementById('eom-time').value,
+    Total:document.getElementById('eom-total').value,
+    Status:document.getElementById('eom-status').value,
+    Notes:document.getElementById('eom-notes').value,
+  };
+  for (const [field,value] of Object.entries(fields)) {
+    await fetch(`${API}/update-order`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({row,field,value})});
+  }
+  closeModal('edit-ord-modal');
+  showToast('✓ Pedido actualizado','success');
+  await loadAll();
+}
+
+async function quickUpdateOrder(status) {
+  const row = +document.getElementById('eom-row').value;
+  await fetch(`${API}/update-order`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({row,field:'Status',value:status})});
+  closeModal('edit-ord-modal');
+  showToast(status==='READY'?'● Pedido marcado como listo':'Pedido cancelado', status==='READY'?'info':'error');
+  await loadAll();
+}
+
+async function markOrderReady(row) {
+  await fetch(`${API}/update-order`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({row,field:'Status',value:'READY'})});
+  showToast('● Pedido marcado como listo','info');
+  await loadAll();
+}
+
+async function quickCancelOrd(row) {
+  if (!confirm('¿Cancelar este pedido?')) return;
+  await fetch(`${API}/update-order`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({row,field:'Status',value:'CANCELLED'})});
+  showToast('Pedido cancelado','error');
+  await loadAll();
+}
+
+function closeModal(id){document.getElementById(id).classList.remove('open')}
+
+function showToast(msg,type='success'){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.className=`toast ${type} show`;
+  setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+loadAll();
+setInterval(loadAll, 30000);
 </script>
-
 </body>
 </html>

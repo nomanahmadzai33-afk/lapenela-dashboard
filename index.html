@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Penela — Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #0C0C0E;
+  --surface: #131316;
+  --card: #18181C;
+  --border: #252528;
+  --accent: #C9913D;
+  --accent2: #E8C47A;
+  --red: #C0392B;
+  --green: #2E7D52;
+  --text: #F0EDE8;
+  --muted: #6B6760;
+  --soft: #2A2820;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  font-weight: 300;
+}
+
+/* HEADER */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 2rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+}
+
+.logo span { color: var(--text); font-weight: 400; }
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.live-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(46,125,82,0.15);
+  border: 1px solid rgba(46,125,82,0.3);
+  color: #4CAF82;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.live-dot {
+  width: 7px;
+  height: 7px;
+  background: #4CAF82;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.date-badge {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+/* MAIN */
+main {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* TOP STATS */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--accent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.stat-card:hover::before { opacity: 1; }
+
+.stat-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  margin-bottom: 0.75rem;
+}
+
+.stat-value {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.8rem;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1;
+  margin-bottom: 0.4rem;
+}
+
+.stat-sub {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.stat-up { color: #4CAF82; }
+.stat-down { color: var(--red); }
+
+.stat-icon {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  font-size: 1.5rem;
+  opacity: 0.3;
+}
+
+/* GRID LAYOUT */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* SECTION CARD */
+.section-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.section-badge {
+  font-size: 0.72rem;
+  color: var(--muted);
+  background: var(--surface);
+  padding: 3px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
+
+/* RESERVATIONS TABLE */
+.res-table {
+  width: 100%;
+}
+
+.res-row {
+  display: grid;
+  grid-template-columns: 1fr 80px 100px 90px 80px;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s;
+  cursor: pointer;
+}
+
+.res-row:last-child { border-bottom: none; }
+.res-row:hover { background: rgba(201,145,61,0.04); }
+
+.res-row.header-row {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  padding: 0.75rem 1.5rem;
+  background: var(--surface);
+}
+
+.res-name {
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.res-phone {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.res-people {
+  font-size: 0.88rem;
+  text-align: center;
+}
+
+.res-time {
+  font-size: 0.85rem;
+  color: var(--accent2);
+}
+
+.res-zone {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-weight: 500;
+}
+
+.status-confirmed {
+  background: rgba(46,125,82,0.15);
+  color: #4CAF82;
+}
+
+.status-pending {
+  background: rgba(201,145,61,0.15);
+  color: var(--accent);
+}
+
+.status-cancelled {
+  background: rgba(192,57,43,0.15);
+  color: #E57373;
+}
+
+/* CALLS LOG */
+.call-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s;
+}
+
+.call-item:last-child { border-bottom: none; }
+.call-item:hover { background: rgba(201,145,61,0.04); }
+
+.call-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.call-icon-in { background: rgba(46,125,82,0.15); }
+.call-icon-missed { background: rgba(192,57,43,0.15); }
+.call-icon-transfer { background: rgba(201,145,61,0.15); }
+
+.call-info { flex: 1; }
+
+.call-number {
+  font-size: 0.88rem;
+  font-weight: 500;
+}
+
+.call-detail {
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.call-time {
+  font-size: 0.78rem;
+  color: var(--muted);
+  text-align: right;
+}
+
+.call-duration {
+  font-size: 0.85rem;
+  color: var(--accent2);
+}
+
+/* LANGUAGE CHART */
+.lang-chart {
+  padding: 1.5rem;
+}
+
+.lang-item {
+  margin-bottom: 1.25rem;
+}
+
+.lang-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.82rem;
+  margin-bottom: 6px;
+}
+
+.lang-pct { color: var(--accent2); font-weight: 500; }
+
+.lang-bar {
+  height: 6px;
+  background: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.lang-fill {
+  height: 100%;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  transition: width 1s ease;
+}
+
+/* PEAK HOURS */
+.peak-chart {
+  padding: 1.5rem;
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  height: 120px;
+}
+
+.peak-bar-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  height: 100%;
+  justify-content: flex-end;
+}
+
+.peak-bar {
+  width: 100%;
+  border-radius: 3px 3px 0 0;
+  background: var(--border);
+  transition: background 0.2s;
+  cursor: pointer;
+  min-height: 4px;
+}
+
+.peak-bar.active { background: linear-gradient(180deg, var(--accent2), var(--accent)); }
+.peak-bar:hover { background: var(--accent); }
+
+.peak-label {
+  font-size: 0.65rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+/* TODAY SUMMARY */
+.today-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border);
+}
+
+.today-cell {
+  background: var(--card);
+  padding: 1.25rem 1.5rem;
+  text-align: center;
+}
+
+.today-val {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--accent2);
+}
+
+.today-lbl {
+  font-size: 0.75rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-top: 4px;
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 1.5rem;
+  font-size: 0.75rem;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
+  margin-top: 1rem;
+}
+
+footer strong { color: var(--accent); }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  main { padding: 1rem; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">La Penela <span>· Dashboard</span></div>
+  <div class="header-right">
+    <div class="live-badge"><div class="live-dot"></div> AI Activo</div>
+    <div class="date-badge" id="currentDate"></div>
+  </div>
+</header>
+
+<main>
+
+  <!-- STATS -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon">📞</div>
+      <div class="stat-label">Llamadas Hoy</div>
+      <div class="stat-value">47</div>
+      <div class="stat-sub"><span class="stat-up">↑ 12%</span> vs ayer</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">📅</div>
+      <div class="stat-label">Reservas Hoy</div>
+      <div class="stat-value">18</div>
+      <div class="stat-sub"><span class="stat-up">↑ 3</span> desde ayer</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">👥</div>
+      <div class="stat-label">Comensales Esperados</div>
+      <div class="stat-value">124</div>
+      <div class="stat-sub">Comida: 72 · Cena: 52</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">✅</div>
+      <div class="stat-label">Tasa de Atención</div>
+      <div class="stat-value">98%</div>
+      <div class="stat-sub"><span class="stat-up">1 perdida</span> de 47</div>
+    </div>
+  </div>
+
+  <!-- RESERVATIONS + CALLS -->
+  <div class="grid-3">
+
+    <!-- RESERVATIONS -->
+    <div class="section-card">
+      <div class="section-head">
+        <div class="section-title">Reservas de Hoy</div>
+        <div class="section-badge">Lunes 2 Jun 2026</div>
+      </div>
+      <div class="res-table">
+        <div class="res-row header-row">
+          <div>Cliente</div>
+          <div style="text-align:center">Personas</div>
+          <div>Hora</div>
+          <div>Zona</div>
+          <div>Estado</div>
+        </div>
+        <div class="res-row">
+          <div><div class="res-name">María García</div><div class="res-phone">+34 612 345 678</div></div>
+          <div class="res-people">4</div>
+          <div class="res-time">13:00</div>
+          <div class="res-zone">Salón</div>
+          <div><span class="status-badge status-confirmed">✓ Conf.</span></div>
+        </div>
+        <div class="res-row">
+          <div><div class="res-name">James Wilson</div><div class="res-phone">+44 789 012 345</div></div>
+          <div class="res-people">2</div>
+          <div class="res-time">13:30</div>
+          <div class="res-zone">Terraza</div>
+          <div><span class="status-badge status-confirmed">✓ Conf.</span></div>
+        </div>
+        <div class="res-row">
+          <div><div class="res-name">Pierre Dubois</div><div class="res-phone">+33 612 345 678</div></div>
+          <div class="res-people">6</div>
+          <div class="res-time">14:00</div>
+          <div class="res-zone">Salón</div>
+          <div><span class="status-badge status-pending">⏳ Pend.</span></div>
+        </div>
+        <div class="res-row">
+          <div><div class="res-name">Ana Martínez</div><div class="res-phone">+34 698 765 432</div></div>
+          <div class="res-people">8</div>
+          <div class="res-time">15:15</div>
+          <div class="res-zone">Salón</div>
+          <div><span class="status-badge status-confirmed">✓ Conf.</span></div>
+        </div>
+        <div class="res-row">
+          <div><div class="res-name">Roberto Leal</div><div class="res-phone">+34 677 123 456</div></div>
+          <div class="res-people">3</div>
+          <div class="res-time">21:00</div>
+          <div class="res-zone">Terraza</div>
+          <div><span class="status-badge status-confirmed">✓ Conf.</span></div>
+        </div>
+        <div class="res-row">
+          <div><div class="res-name">Sofia Chen</div><div class="res-phone">+34 655 987 654</div></div>
+          <div class="res-people">2</div>
+          <div class="res-time">21:30</div>
+          <div class="res-zone">Barra</div>
+          <div><span class="status-badge status-pending">⏳ Pend.</span></div>
+        </div>
+        <div class="res-row">
+          <div><div class="res-name">Carlos Ruiz</div><div class="res-phone">+34 611 222 333</div></div>
+          <div class="res-people">10</div>
+          <div class="res-time">22:00</div>
+          <div class="res-zone">Salón</div>
+          <div><span class="status-badge status-cancelled">✗ Cancel.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div style="display:flex;flex-direction:column;gap:1.5rem;">
+
+      <!-- TODAY SUMMARY -->
+      <div class="section-card">
+        <div class="section-head">
+          <div class="section-title">Resumen del Día</div>
+        </div>
+        <div class="today-grid">
+          <div class="today-cell">
+            <div class="today-val">72</div>
+            <div class="today-lbl">Comida</div>
+          </div>
+          <div class="today-cell">
+            <div class="today-val">52</div>
+            <div class="today-lbl">Cena</div>
+          </div>
+          <div class="today-cell">
+            <div class="today-val">3</div>
+            <div class="today-lbl">Idiomas</div>
+          </div>
+          <div class="today-cell">
+            <div class="today-val">4m</div>
+            <div class="today-lbl">Duración Media</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LANGUAGES -->
+      <div class="section-card">
+        <div class="section-head">
+          <div class="section-title">Idiomas</div>
+          <div class="section-badge">Hoy</div>
+        </div>
+        <div class="lang-chart">
+          <div class="lang-item">
+            <div class="lang-label"><span>🇪🇸 Español</span><span class="lang-pct">68%</span></div>
+            <div class="lang-bar"><div class="lang-fill" style="width:68%"></div></div>
+          </div>
+          <div class="lang-item">
+            <div class="lang-label"><span>🇬🇧 English</span><span class="lang-pct">22%</span></div>
+            <div class="lang-bar"><div class="lang-fill" style="width:22%"></div></div>
+          </div>
+          <div class="lang-item">
+            <div class="lang-label"><span>🇫🇷 Français</span><span class="lang-pct">10%</span></div>
+            <div class="lang-bar"><div class="lang-fill" style="width:10%"></div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CALLS + PEAK HOURS -->
+  <div class="grid-2">
+
+    <!-- CALLS LOG -->
+    <div class="section-card">
+      <div class="section-head">
+        <div class="section-title">Últimas Llamadas</div>
+        <div class="section-badge">En tiempo real</div>
+      </div>
+      <div class="call-item">
+        <div class="call-icon call-icon-in">📞</div>
+        <div class="call-info">
+          <div class="call-number">+34 612 345 678</div>
+          <div class="call-detail">Reserva para 4 — Conf. para el martes 13:00 · 🇪🇸</div>
+        </div>
+        <div class="call-time"><div class="call-duration">3m 42s</div><div>hace 2 min</div></div>
+      </div>
+      <div class="call-item">
+        <div class="call-icon call-icon-in">📞</div>
+        <div class="call-info">
+          <div class="call-number">+44 789 012 345</div>
+          <div class="call-detail">Menu question — Fish dishes · 🇬🇧</div>
+        </div>
+        <div class="call-time"><div class="call-duration">1m 18s</div><div>hace 8 min</div></div>
+      </div>
+      <div class="call-item">
+        <div class="call-icon call-icon-transfer">🔀</div>
+        <div class="call-info">
+          <div class="call-number">+34 677 890 123</div>
+          <div class="call-detail">Transferida al equipo — evento 80 personas · 🇪🇸</div>
+        </div>
+        <div class="call-time"><div class="call-duration">2m 05s</div><div>hace 15 min</div></div>
+      </div>
+      <div class="call-item">
+        <div class="call-icon call-icon-missed">❌</div>
+        <div class="call-info">
+          <div class="call-number">+34 655 432 109</div>
+          <div class="call-detail">Llamada perdida — sin respuesta</div>
+        </div>
+        <div class="call-time"><div style="color:#E57373;font-size:0.85rem">Perdida</div><div>hace 22 min</div></div>
+      </div>
+      <div class="call-item">
+        <div class="call-icon call-icon-in">📞</div>
+        <div class="call-info">
+          <div class="call-number">+33 612 345 678</div>
+          <div class="call-detail">Réservation pour 6 — Mercredi 20:00 · 🇫🇷</div>
+        </div>
+        <div class="call-time"><div class="call-duration">4m 11s</div><div>hace 31 min</div></div>
+      </div>
+      <div class="call-item">
+        <div class="call-icon call-icon-in">📞</div>
+        <div class="call-info">
+          <div class="call-number">+34 698 765 432</div>
+          <div class="call-detail">Consulta horario y terraza · 🇪🇸</div>
+        </div>
+        <div class="call-time"><div class="call-duration">0m 52s</div><div>hace 45 min</div></div>
+      </div>
+    </div>
+
+    <!-- PEAK HOURS -->
+    <div class="section-card">
+      <div class="section-head">
+        <div class="section-title">Horas Pico de Llamadas</div>
+        <div class="section-badge">Últimos 7 días</div>
+      </div>
+      <div class="peak-chart" id="peakChart"></div>
+      <div style="padding:0 1.5rem 1.5rem;">
+        <div style="font-size:0.78rem;color:var(--muted);margin-bottom:1rem;">Motivos de llamada</div>
+        <div style="display:flex;flex-direction:column;gap:0.6rem;">
+          <div style="display:flex;justify-content:space-between;font-size:0.83rem;">
+            <span>📅 Reservas</span><span style="color:var(--accent2)">61%</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:0.83rem;">
+            <span>🍽️ Info menú</span><span style="color:var(--accent2)">19%</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:0.83rem;">
+            <span>🕐 Horarios</span><span style="color:var(--accent2)">12%</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:0.83rem;">
+            <span>🔀 Transferidas</span><span style="color:var(--accent2)">5%</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:0.83rem;">
+            <span>❌ Perdidas</span><span style="color:#E57373">3%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+<footer>
+  Powered by <strong>TalkServe AI</strong> · talkserveai.net · La Penela Moraleja, Alcobendas
+</footer>
+
+<script>
+// Set current date
+const d = new Date();
+const days = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+const months = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+document.getElementById('currentDate').textContent = `${days[d.getDay()]} ${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
+
+// Peak hours chart
+const hours = ['8h','9h','10h','11h','12h','13h','14h','15h','16h','17h','18h','19h','20h','21h','22h','23h','0h'];
+const vals =   [3,   5,   8,   12,  18,  35,  42,  38,  20,  10,  8,   12,  25,  40,  38,  22,  8];
+const max = Math.max(...vals);
+const chart = document.getElementById('peakChart');
+
+hours.forEach((h, i) => {
+  const wrap = document.createElement('div');
+  wrap.className = 'peak-bar-wrap';
+  
+  const bar = document.createElement('div');
+  bar.className = 'peak-bar' + (vals[i] >= 35 ? ' active' : '');
+  bar.style.height = `${(vals[i]/max)*80}px`;
+  bar.title = `${h}: ${vals[i]} llamadas`;
+  
+  const lbl = document.createElement('div');
+  lbl.className = 'peak-label';
+  lbl.textContent = h;
+  
+  wrap.appendChild(bar);
+  wrap.appendChild(lbl);
+  chart.appendChild(wrap);
+});
+</script>
+
+</body>
+</html>

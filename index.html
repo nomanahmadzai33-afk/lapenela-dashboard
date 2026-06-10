@@ -357,6 +357,26 @@ let resData = [], ordData = [];
 let resFilter = 'all', ordFilter = 'all';
 let currentTab = 'reservations';
 
+// Normalize date to dd-mm-yyyy for display only
+function normalizeDate(raw) {
+  if (!raw) return '—';
+  raw = String(raw).trim().replace(/'/g,'');
+  let m = raw.match(/^(\d{1,2})[-\/](\d{1,2})[-\/](\d{4})$/);
+  if (m) return String(m[1]).padStart(2,'0') + '-' + String(m[2]).padStart(2,'0') + '-' + m[3];
+  m = raw.match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (m) return m[3] + '-' + m[2] + '-' + m[1];
+  const months = {ene:'01',feb:'02',mar:'03',abr:'04',may:'05',jun:'06',jul:'07',ago:'08',sep:'09',oct:'10',nov:'11',dic:'12'};
+  m = raw.match(/(\d{1,2})\s+de\s+(\w+)(?:\s+de\s+(\d{4}))?/i);
+  if (m) {
+    const mk = Object.keys(months).find(k=>m[2].toLowerCase().startsWith(k));
+    if (mk) {
+      const yr = m[3] || new Date().getFullYear();
+      return String(m[1]).padStart(2,'0') + '-' + months[mk] + '-' + yr;
+    }
+  }
+  return raw;
+}
+
 // Convert 12h to 24h format
 function to24h(t) {
   if (!t) return t;
@@ -369,6 +389,26 @@ function to24h(t) {
   if (period === 'AM' && h === 12) h = 0;
   if (period === 'PM' && h !== 12) h += 12;
   return String(h).padStart(2,'0') + ':' + min;
+}
+
+// Normalize date to dd-mm-yyyy for display only
+function normalizeDate(raw) {
+  if (!raw) return '—';
+  raw = String(raw).trim().replace(/'/g,'');
+  let m = raw.match(/^(\d{1,2})[-\/](\d{1,2})[-\/](\d{4})$/);
+  if (m) return String(m[1]).padStart(2,'0') + '-' + String(m[2]).padStart(2,'0') + '-' + m[3];
+  m = raw.match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (m) return m[3] + '-' + m[2] + '-' + m[1];
+  const months = {ene:'01',feb:'02',mar:'03',abr:'04',may:'05',jun:'06',jul:'07',ago:'08',sep:'09',oct:'10',nov:'11',dic:'12'};
+  m = raw.match(/(\d{1,2})\s+de\s+(\w+)(?:\s+de\s+(\d{4}))?/i);
+  if (m) {
+    const mk = Object.keys(months).find(k=>m[2].toLowerCase().startsWith(k));
+    if (mk) {
+      const yr = m[3] || new Date().getFullYear();
+      return String(m[1]).padStart(2,'0') + '-' + months[mk] + '-' + yr;
+    }
+  }
+  return raw;
 }
 
 // Convert 12h to 24h format
@@ -506,7 +546,7 @@ function renderReservations() {
     return `<tr class="${rowClass}">
       <td class="td-mono" style="color:var(--text3)">${i+1}</td>
       <td class="td-name">${r.Name||'—'}</td>
-      <td><span class="td-mono">${r.Date||'—'}</span>${badge}</td>
+      <td><span class="td-mono">${normalizeDate(r.Date)}</span>${badge}</td>
       <td class="td-mono">${to24hto24h(r['Time ']||r.Time||'—')}</td>
       <td class="td-mono">${r.Guests||'—'} 👤</td>
       <td class="td-mono">${r.Phone||'—'}</td>

@@ -371,6 +371,20 @@ function to24h(t) {
   return String(h).padStart(2,'0') + ':' + min;
 }
 
+// Convert 12h to 24h format
+function to24h(t) {
+  if (!t) return t;
+  t = String(t).trim();
+  const m = t.match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
+  if (!m) return t;
+  let h = parseInt(m[1]);
+  const min = m[2];
+  const period = m[3].toUpperCase();
+  if (period === 'AM' && h === 12) h = 0;
+  if (period === 'PM' && h !== 12) h += 12;
+  return String(h).padStart(2,'0') + ':' + min;
+}
+
 // DATE UTILS — robust, handles all formats
 function parseDate(raw) {
   if (!raw) return null;
@@ -493,7 +507,7 @@ function renderReservations() {
       <td class="td-mono" style="color:var(--text3)">${i+1}</td>
       <td class="td-name">${r.Name||'—'}</td>
       <td><span class="td-mono">${r.Date||'—'}</span>${badge}</td>
-      <td class="td-mono">${to24h(r['Time ']||r.Time||'—')}</td>
+      <td class="td-mono">${to24hto24h(r['Time ']||r.Time||'—')}</td>
       <td class="td-mono">${r.Guests||'—'} 👤</td>
       <td class="td-mono">${r.Phone||'—'}</td>
       <td><span class="channel ch-wa">💬 WA</span></td>

@@ -547,7 +547,7 @@ function renderReservations() {
       <td class="td-mono" style="color:var(--text3)">${i+1}</td>
       <td class="td-name">${r.Name||'—'}</td>
       <td><span class="td-mono">${normalizeDate(r.Date)}</span>${badge}</td>
-      <td class="td-mono">${to24hto24h(r['Time ']||r.Time||'—')}</td>
+      <td class="td-mono">${to24h(r['Time ']||r.Time||'—')}</td>
       <td class="td-mono">${r.Guests||'—'} 👤</td>
       <td class="td-mono">${r.Phone||'—'}</td>
       <td><span class="channel ch-wa">💬 WA</span></td>
